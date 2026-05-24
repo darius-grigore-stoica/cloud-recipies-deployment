@@ -26,7 +26,10 @@ app.add_middleware(
 )
 
 # ── Static files (CSS, JS, images) and HTML templates ────────────────────────
-app.mount("/static", StaticFiles(directory="static"), name="static")
+import os
+static_dir = os.path.join(os.path.dirname(__file__), "static")
+os.makedirs(static_dir, exist_ok=True)
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
 templates = Jinja2Templates(directory="templates")
 
 # ── Include the recipes API router ────────────────────────────────────────────
